@@ -1,0 +1,55 @@
+﻿<extra:Window x:Class="Insight.WindowsPresentation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:metro="http://schemas.codeplex.com/elysium"
+        xmlns:extra="http://schemas.extra.com/ui"
+        xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock" 
+        xmlns:local="clr-namespace:Insight.WindowsPresentation"      
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.Resources>
+        
+        </Grid.Resources>
+        <avalonDock:DockingManager x:Name="dockManager"                                   
+                        DocumentsSource="{Binding OpenDocuments}"
+                        AnchorablesSource="{Binding Tools}"
+                        LayoutItemTemplateSelector="{StaticResource TemplateSelector}">
+
+            <!--AnchorablesSource="{Binding Tools}"-->
+            <!--ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}"-->
+
+            <avalonDock:DockingManager.Resources>
+                <Style TargetType="{x:Type avalonDock:LayoutDocumentControl }">
+                    <Setter Property="Background" Value="White" />
+                </Style>
+            </avalonDock:DockingManager.Resources>
+
+            <avalonDock:DockingManager.LayoutItemContainerStyle>
+                <Style TargetType="{x:Type avalonDock:LayoutItem}">
+                    <!--<Setter Property="Title" Value="Hello World"/>-->
+                    <Setter Property="Title" Value="{Binding Model.Title}"/>
+                    <!--<Setter Property="IconSource" Value="{Binding Model.IconSource}"/>-->
+                    <!--<Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}"/>-->
+                    <!--<Setter Property="ContentId" Value="{Binding Model.ContentId}"/>-->
+                    <Setter Property="IsSelected" Value="True"/>
+                    <Setter Property="IsActive" Value="True"/>
+                </Style>
+            </avalonDock:DockingManager.LayoutItemContainerStyle>
+
+            <avalonDock:DockingManager.LayoutUpdateStrategy>
+                <local:LayoutInitializer/>
+            </avalonDock:DockingManager.LayoutUpdateStrategy>
+
+            <avalonDock:LayoutRoot>
+                <avalonDock:LayoutPanel Orientation="Horizontal">
+                    <avalonDock:LayoutAnchorablePane Name="ExplorerPane" DockWidth="380"  />
+                    <avalonDock:LayoutPanel Orientation="Vertical">
+                        <avalonDock:LayoutDocumentPane/>
+                        <avalonDock:LayoutAnchorablePane Name="ToolsPane" DockHeight="150" />
+                    </avalonDock:LayoutPanel>
+                </avalonDock:LayoutPanel>
+            </avalonDock:LayoutRoot>
+        </avalonDock:DockingManager>
+
+    </Grid>
+</extra:Window>
